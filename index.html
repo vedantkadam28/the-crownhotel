@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Crown - Food & Spirits</title>
+    <style>
+        /* --- THEME VARIABLES (Premium Black & Gold) --- */
+        :root {
+            --gold-primary: #D4AF37; /* Classic Gold */
+            --gold-light: #F6C948;
+            --gold-dark: #8A6E18;
+            --bg-black: #0a0a0a;
+            --bg-card: #141414;
+            --text-white: #FFFFFF;
+            --text-muted: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. HEADER & LOGO --- */
+        header {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Logo to left */
+            background: linear-gradient(to bottom, #000, rgba(0,0,0,0));
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-primary);
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- 2. PROMO & TOP BUTTONS --- */
+        .promo-section {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+            border-bottom: 1px solid var(--gold-dark);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .promo-text {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            padding: 12px 24px;
+            border-radius: 4px;
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-primary);
+            color: #000;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. MENU GALLERY SECTION (10 Slots) --- */
+        .gallery-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--text-white);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 300;
+            border-bottom: 1px solid var(--gold-dark);
+            display: inline-block;
+            padding-bottom: 10px;
+            left: 50%;
+            position: relative;
+            transform: translateX(-50%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            gap: 20px;
+            /* Adaptive Grid: Fits as many as possible */
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+
+        .gallery-item {
+            background: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .gallery-btn {
+            width: 100%;
+            aspect-ratio: 3/4; /* Keeps menu pages vertical */
+            background: #000;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .gallery-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-btn:hover img {
+            transform: scale(1.05);
+        }
+
+        .caption {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* --- 4. BOTTOM ACTION (Contact Only) --- */
+        .bottom-actions {
+            padding: 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top, #1a1a1a, #0a0a0a);
+            margin-top: auto;
+        }
+
+        .btn-large {
+            width: 100%;
+            max-width: 350px;
+            padding: 18px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            background: var(--gold-primary);
+            color: #000;
+            border: none;
+            animation: pulse 2s infinite;
+        }
+
+        .btn-large:hover {
+            background: var(--gold-light);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #555;
+            background: #000;
+            border-top: 1px solid #222;
+        }
+        
+        .footer-highlight { color: var(--gold-dark); }
+
+        /* --- LIGHTBOX (MODAL) --- */
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            padding: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .modal[aria-hidden="false"] { display: flex; }
+        .modal-content { text-align: center; position: relative; width: 100%; max-width: 600px; }
+        .modal-img { width: 100%; height: auto; max-height: 85vh; object-fit: contain; border: 2px solid var(--gold-primary); border-radius: 4px; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        
+        .modal-close {
+            position: absolute; top: -40px; right: 0;
+            font-size: 40px; color: var(--gold-primary);
+            background: none; border: none; cursor: pointer;
+        }
+        
+        .modal-nav {
+            position: absolute; bottom: -60px; left: 0; right: 0;
+            display: flex; justify-content: center; gap: 40px;
+        }
+        .modal-nav button {
+            background: transparent; border: 1px solid var(--gold-primary);
+            color: var(--gold-primary); font-size: 24px;
+            width: 50px; height: 50px; border-radius: 50%;
+            cursor: pointer; transition: 0.3s;
+        }
+        .modal-nav button:hover { background: var(--gold-primary); color: #000; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+
+    <div class="promo-section">
+        <h2 class="promo-text">Follow and give a review to get 10% off</h2>
+        
+        <div class="top-buttons">
+            <a href="https://www.instagram.com/the__crown__hotel?igsh=MXZ0OGhiZWdiczkxZg==" class="btn-gold">
+                <span>📷 Instagram</span>
+            </a>
+            
+            <a href="https://maps.app.goo.gl/TVZmLxCBhxSkm7sb6" class="btn-gold">
+                <span>★ Give Review</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="gallery-wrapper">
+        <h3 class="section-title">Our Menu</h3>
+
+        <div class="gallery-grid">
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="0"><img src="m1.png" alt="Page 1"></button>
+                <figcaption class="caption">Veg Starters</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="1"><img src="m2.png" alt="Page 2"></button>
+                <figcaption class="caption">Non-Veg Starters</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="2"><img src="m3.png" alt="Page 3"></button>
+                <figcaption class="caption">Veg & Non-Veg Soups</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="3"><img src="m4.png" alt="Page 4"></button>
+                <figcaption class="caption">Chinese Cusine</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="4"><img src="m5.png" alt="Page 5"></button>
+                <figcaption class="caption">Veg Curries</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="5"><img src="m6.png" alt="Page 6"></button>
+                <figcaption class="caption">Paneer Dishes</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="6"><img src="m7.png" alt="Page 7"></button>
+                <figcaption class="caption">Chiken Special</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="7"><img src="m8.png" alt="Page 8"></button>
+                <figcaption class="caption">Mutton Special</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="8"><img src="m9.png" alt="Page 9"></button>
+                <figcaption class="caption">Tandoor Special</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <button class="gallery-btn" data-index="9"><img src="m10.png" alt="Page 10"></button>
+                <figcaption class="caption">Royal Biryani</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div class="bottom-actions">
+        <a href="tel:9762683737" class="btn-large">							📞 Contact Us											
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 The Crown. All Rights Reserved.</p>
+        <p class="footer-highlight">Created by Adbahu</p>
+    </footer>
+
+    <div id="gallery-modal" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <button id="modal-close" class="modal-close">&times;</button>
+            <img id="modal-img" class="modal-img" src="" alt="">
+            <div class="modal-nav">
+                <button id="modal-prev">❮</button>
+                <button id="modal-next">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const galleryBtns = Array.from(document.querySelectorAll('.gallery-btn'));
+            const modal = document.getElementById('gallery-modal');
+            const modalImg = document.getElementById('modal-img');
+            const closeBtn = document.getElementById('modal-close');
+            const prevBtn = document.getElementById('modal-prev');
+            const nextBtn = document.getElementById('modal-next');
+
+            let currentIndex = 0;
+
+            function openModal(i) {
+                currentIndex = i;
+                const img = galleryBtns[i].querySelector('img');
+                if (!img) return;
+                
+                modalImg.src = img.src;
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden'; // Lock scroll
+            }
+
+            function closeModal() {
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = ''; // Unlock scroll
+            }
+
+            function changeImage(direction) {
+                currentIndex = (currentIndex + direction + galleryBtns.length) % galleryBtns.length;
+                openModal(currentIndex);
+            }
+
+            galleryBtns.forEach((btn, idx) => {
+                btn.addEventListener('click', () => openModal(idx));
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); changeImage(-1); });
+            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); changeImage(1); });
+            
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) closeModal();
+            });
+
+            // Keyboard Nav
+            document.addEventListener('keydown', (e) => {
+                if(modal.getAttribute('aria-hidden') === 'false') {
+                    if(e.key === 'Escape') closeModal();
+                    if(e.key === 'ArrowLeft') changeImage(-1);
+                    if(e.key === 'ArrowRight') changeImage(1);
+                }
+            });
+
+            // Image Error Handler (for placeholders)
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    if(!this.src.includes('placehold.co')) {
+                        // Shows a numbered placeholder if the real image is missing
+                        this.src = `https://placehold.co/400x600/141414/D4AF37?text=Menu+${this.parentElement.getAttribute('data-index')*1+1}`;
+                    }
+                });
+            });
+
+        })();
+    </script>
+<div style="text-align: center; margin-top: 40px; background-color: #FFC800; padding: 20px; border-radius: 10px;">
+  <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; color: white;">Need a website - contact us</p>
+  <a href="https://www.instagram.com/ad.bhau?igsh=MWY3cWozMGIwcTRhZQ==" style="margin: 0 10px;" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="height:40px; width:40px;"/>
+  </a>
+
+</body>
+</html>
